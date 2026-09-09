@@ -61,7 +61,7 @@ export default function AdminLogin() {
             </p>
             <p>
               Password:{' '}
-              <span className="font-mono text-[var(--ink)]">Admin123!</span>
+              <span className="font-mono text-[var(--ink)]">Admin@123!</span>
             </p>
           </div>
         </div>
