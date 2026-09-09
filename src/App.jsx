@@ -3,6 +3,7 @@ import AdminRoute from './components/AdminRoute';
 import { AuthProvider } from './context/AuthContext';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminLogin from './pages/AdminLogin';
+import AdminRegister from './pages/AdminRegister';
 import Customers from './pages/Customers';
 
 export default function App() {
@@ -11,6 +12,7 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<AdminLogin />} />
+          <Route path="/register" element={<AdminRegister />} />
           <Route
             path="/dashboard"
             element={

@@ -2,6 +2,7 @@ import api from './axios';
 
 export const authApi = {
   adminLogin: (credentials) => api.post('/auth/admin-login', credentials),
+  adminRegister: (payload) => api.post('/auth/admin-register', payload),
   getMe: () => api.get('/auth/me'),
 };
 

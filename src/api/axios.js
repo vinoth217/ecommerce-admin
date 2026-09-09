@@ -22,7 +22,8 @@ api.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       storage.clearAuth();
-      if (!window.location.pathname.includes('/login')) {
+      const path = window.location.pathname;
+      if (!path.includes('/login') && !path.includes('/register')) {
         window.location.assign('/login');
       }
     }

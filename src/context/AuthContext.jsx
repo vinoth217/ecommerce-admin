@@ -22,10 +22,7 @@ export function AuthProvider({ children }) {
     setToken(null);
   }, []);
 
-  const login = useCallback(async (email, password) => {
-    const { data } = await authApi.adminLogin({ email, password });
-    const auth = data.data;
-
+  const applyAdminAuth = useCallback((auth) => {
     if (!auth?.token || auth?.user?.role !== 'admin') {
       throw new Error('Access denied. Admin credentials required.');
     }
@@ -36,6 +33,22 @@ export function AuthProvider({ children }) {
     setUser(auth.user);
     return auth.user;
   }, []);
+
+  const login = useCallback(
+    async (email, password) => {
+      const { data } = await authApi.adminLogin({ email, password });
+      return applyAdminAuth(data.data);
+    },
+    [applyAdminAuth]
+  );
+
+  const register = useCallback(
+    async (payload) => {
+      const { data } = await authApi.adminRegister(payload);
+      return applyAdminAuth(data.data);
+    },
+    [applyAdminAuth]
+  );
 
   useEffect(() => {
     let cancelled = false;
@@ -79,9 +92,10 @@ export function AuthProvider({ children }) {
       loading,
       isAuthenticated: Boolean(token && user?.role === 'admin'),
       login,
+      register,
       logout,
     }),
-    [user, token, loading, login, logout]
+    [user, token, loading, login, register, logout]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
