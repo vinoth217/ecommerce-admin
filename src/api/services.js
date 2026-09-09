@@ -13,6 +13,7 @@ export const productApi = {
         includeInactive: true,
         limit: 100,
         page: 1,
+        mine: true,
         ...params,
       },
     }),

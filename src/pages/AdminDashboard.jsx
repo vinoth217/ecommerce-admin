@@ -3,12 +3,14 @@ import { productApi } from '../api/services';
 import AdminLayout from '../components/AdminLayout';
 import ProductFormModal from '../components/ProductFormModal';
 import ProductTable from '../components/ProductTable';
+import { useAuth } from '../context/AuthContext';
 import {
   emptyProductForm,
   productToForm,
 } from '../utils/productHelpers';
 
 export default function AdminDashboard() {
+  const { user } = useAuth();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [listError, setListError] = useState('');
@@ -32,7 +34,7 @@ export default function AdminDashboard() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [user?._id]);
 
   useEffect(() => {
     fetchProducts();
@@ -124,7 +126,7 @@ export default function AdminDashboard() {
             Product management
           </h2>
           <p className="mt-1 text-sm text-[var(--muted)]">
-            Create, update, and remove catalog items.
+            Showing products added by {user?.name || user?.email || 'you'}.
           </p>
         </div>
         <button

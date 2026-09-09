@@ -11,7 +11,7 @@ export default function ProductTable({ products, onEdit, onDelete, deletingId })
       <div className="rounded-2xl border border-dashed border-[var(--line)] bg-white px-6 py-16 text-center">
         <p className="text-lg font-medium">No products yet</p>
         <p className="mt-1 text-sm text-[var(--muted)]">
-          Create your first product to populate the catalog.
+          Add a product and it will appear here for your account.
         </p>
       </div>
     );
@@ -28,6 +28,7 @@ export default function ProductTable({ products, onEdit, onDelete, deletingId })
               <th className="px-4 py-3 font-medium">Category</th>
               <th className="px-4 py-3 font-medium">Price</th>
               <th className="px-4 py-3 font-medium">Stock</th>
+              <th className="px-4 py-3 font-medium">Added by</th>
               <th className="px-4 py-3 font-medium text-right">Actions</th>
             </tr>
           </thead>
@@ -35,6 +36,10 @@ export default function ProductTable({ products, onEdit, onDelete, deletingId })
             {products.map((product) => {
               const image = getProductImage(product);
               const stock = getProductStock(product);
+              const addedBy =
+                product.createdBy?.name ||
+                product.createdBy?.email ||
+                'You';
 
               return (
                 <tr key={product._id} className="border-t border-[var(--line)]">
@@ -76,6 +81,7 @@ export default function ProductTable({ products, onEdit, onDelete, deletingId })
                       {stock}
                     </span>
                   </td>
+                  <td className="px-4 py-3 text-[var(--muted)]">{addedBy}</td>
                   <td className="px-4 py-3">
                     <div className="flex justify-end gap-2">
                       <button
